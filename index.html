@@ -1589,7 +1589,7 @@
         }
 
         .radio-player-info {
-            padding: 30px;
+            padding: 30px 30px 75px 30px;
             background: rgba(0, 0, 0, 0.4);
             text-align: center;
             border-top: 1px solid rgba(255, 215, 0, 0.2);
@@ -1627,16 +1627,20 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s;
-            margin-top: 15px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10001;
         }
 
         .radio-close-button:hover {
             background: var(--gold);
             color: var(--navy);
-            transform: translateY(-2px);
+            transform: translateX(-50%) translateY(-2px);
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
         }
 
@@ -1652,7 +1656,7 @@
 
         @media (max-width: 768px) {
             .radio-player-info {
-                padding: 25px 20px;
+                padding: 25px 20px 80px 20px;
             }
             
             .radio-player-info p {
@@ -1668,12 +1672,13 @@
             .radio-close-button {
                 padding: 10px 25px;
                 font-size: 15px;
+                bottom: calc(40px + env(safe-area-inset-bottom));
             }
         }
 
         @media (max-width: 480px) {
             .radio-player-info {
-                padding: 20px 15px;
+                padding: 20px 15px 85px 15px;
             }
             
             .radio-player-info p {
@@ -1690,6 +1695,7 @@
                 padding: 8px 20px;
                 font-size: 14px;
                 gap: 8px;
+                bottom: calc(50px + env(safe-area-inset-bottom));
             }
         }
 
