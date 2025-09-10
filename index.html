@@ -1270,6 +1270,23 @@
             height: 100% !important;
         }
 
+        /* Hide the video element but keep controls visible */
+        .hls-video-wrapper .video-js .vjs-tech {
+            opacity: 0 !important;
+            transition: opacity 0.3s ease !important;
+        }
+
+        .hls-video-wrapper .video-js.playing .vjs-tech {
+            opacity: 1 !important;
+        }
+
+        /* Ensure big play button is always visible */
+        .hls-video-wrapper .video-js .vjs-big-play-button {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            z-index: 100 !important;
+        }
+
         .hls-player-info {
             padding: 20px 30px;
             background: var(--navy-dark);
@@ -3010,9 +3027,24 @@
                     console.log('Error loading HLS stream');
                     hlsPlayer.error(null);
                 });
+
+                // Show video only when playing
+                hlsPlayer.on('play', function() {
+                    hlsPlayer.el().classList.add('playing');
+                });
+
+                hlsPlayer.on('pause', function() {
+                    hlsPlayer.el().classList.remove('playing');
+                });
+
+                hlsPlayer.on('ended', function() {
+                    hlsPlayer.el().classList.remove('playing');
+                });
             } else {
                 // If player exists, just play
                 hlsPlayer.play();
+                // Add playing class when resuming
+                hlsPlayer.el().classList.add('playing');
             }
 
             // Prevent body scroll
