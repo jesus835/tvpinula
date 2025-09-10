@@ -1640,6 +1640,16 @@
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
         }
 
+        /* Hide radio video player completely */
+        .radio-video-player {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+        }
+
         @media (max-width: 768px) {
             .radio-player-info {
                 padding: 25px 20px;
@@ -2526,9 +2536,14 @@
                 </button>
             </div>
             
-            <audio id="radioAudio" preload="none">
-                <source src="https://live20.bozztv.com/giatv/giatv-villahermosalive/villahermosalive/chunks.m3u8" type="application/x-mpegURL">
-            </audio>
+            <video
+                id="radioAudio"
+                class="video-js vjs-default-skin radio-video-player"
+                controls="false"
+                preload="none"
+                style="display: none;"
+                data-setup='{"fluid": false, "controls": false, "audioOnlyMode": true}'>
+            </video>
         </div>
     </div>
 
@@ -2653,40 +2668,50 @@
             const overlay = document.getElementById('radioOverlay');
             overlay.classList.add('active');
             
-            // Initialize audio element if not already initialized
+            // Initialize Video.js player if not already initialized
             if (!radioAudio) {
-                radioAudio = document.getElementById('radioAudio');
-                
-                // Setup audio source for HLS stream
-                if (radioAudio.canPlayType('application/vnd.apple.mpegurl')) {
-                    radioAudio.src = 'https://live20.bozztv.com/giatv/giatv-villahermosalive/villahermosalive/chunks.m3u8';
-                } else if (typeof Hls !== 'undefined') {
-                    // Use HLS.js if available
-                    const hls = new Hls();
-                    hls.loadSource('https://live20.bozztv.com/giatv/giatv-villahermosalive/villahermosalive/chunks.m3u8');
-                    hls.attachMedia(radioAudio);
-                }
+                radioAudio = videojs('radioAudio', {
+                    fluid: false,
+                    responsive: false,
+                    controls: false,
+                    autoplay: false,
+                    preload: 'none',
+                    audioOnlyMode: true,
+                    html5: {
+                        vhs: {
+                            overrideNative: true
+                        }
+                    }
+                });
+
+                // Load HLS stream
+                radioAudio.ready(() => {
+                    radioAudio.src({
+                        src: 'https://live20.bozztv.com/giatv/giatv-villahermosalive/villahermosalive/chunks.m3u8',
+                        type: 'application/x-mpegURL'
+                    });
+                });
                 
                 // Setup volume control
                 const volumeSlider = document.getElementById('radioVolumeSlider');
-                radioAudio.volume = volumeSlider.value / 100;
+                radioAudio.volume(volumeSlider.value / 100);
                 
                 volumeSlider.addEventListener('input', function() {
-                    radioAudio.volume = this.value / 100;
+                    radioAudio.volume(this.value / 100);
                 });
                 
-                // Audio event listeners
-                radioAudio.addEventListener('play', function() {
+                // Video.js event listeners
+                radioAudio.on('play', function() {
                     updateRadioPlayButton(true);
                     startEqualizer();
                 });
                 
-                radioAudio.addEventListener('pause', function() {
+                radioAudio.on('pause', function() {
                     updateRadioPlayButton(false);
                     stopEqualizer();
                 });
                 
-                radioAudio.addEventListener('error', function() {
+                radioAudio.on('error', function() {
                     console.log('Error loading radio stream');
                     updateRadioPlayButton(false);
                     stopEqualizer();
@@ -2702,7 +2727,7 @@
             overlay.classList.remove('active');
             
             // Pause audio
-            if (radioAudio && !radioAudio.paused) {
+            if (radioAudio && !radioAudio.paused()) {
                 radioAudio.pause();
             }
 
@@ -2713,10 +2738,8 @@
         function toggleRadioPlayback() {
             if (!radioAudio) return;
             
-            if (radioAudio.paused) {
-                radioAudio.play().catch(function(error) {
-                    console.log('Error playing radio:', error);
-                });
+            if (radioAudio.paused()) {
+                radioAudio.play();
             } else {
                 radioAudio.pause();
             }
@@ -3026,14 +3049,14 @@
                         const volumeSlider = document.getElementById('radioVolumeSlider');
                         const currentVolume = parseInt(volumeSlider.value);
                         volumeSlider.value = Math.min(100, currentVolume + 10);
-                        radioAudio.volume = volumeSlider.value / 100;
+                        if (radioAudio) radioAudio.volume(volumeSlider.value / 100);
                         break;
                     case 'ArrowDown':
                         e.preventDefault();
                         const volumeSliderDown = document.getElementById('radioVolumeSlider');
                         const currentVolumeDown = parseInt(volumeSliderDown.value);
                         volumeSliderDown.value = Math.max(0, currentVolumeDown - 10);
-                        radioAudio.volume = volumeSliderDown.value / 100;
+                        if (radioAudio) radioAudio.volume(volumeSliderDown.value / 100);
                         break;
                 }
             }
