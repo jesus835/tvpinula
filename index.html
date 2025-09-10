@@ -1280,11 +1280,9 @@
             opacity: 1 !important;
         }
 
-        /* Ensure big play button is always visible */
+        /* Hide big play button for autoplay */
         .hls-video-wrapper .video-js .vjs-big-play-button {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-            z-index: 100 !important;
+            display: none !important;
         }
 
         .hls-player-info {
@@ -2955,7 +2953,7 @@
                     fluid: true,
                     responsive: true,
                     controls: true,
-                    autoplay: false,
+                    autoplay: true,
                     preload: 'auto',
                     poster: 'https://images.pexels.com/photos/8044178/pexels-photo-8044178.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080',
                     html5: {
@@ -2977,6 +2975,14 @@
                         src: 'https://live20.bozztv.com/giatv/giatv-villahermosalive/villahermosalive/chunks.m3u8',
                         type: 'application/x-mpegURL'
                     });
+
+                    // Force autoplay after source is loaded
+                    setTimeout(() => {
+                        hlsPlayer.play().catch(() => {
+                            // If autoplay fails, try again
+                            console.log('Autoplay failed, retrying...');
+                        });
+                    }, 500);
 
                     // Force poster to cover full area
                     setTimeout(() => {
