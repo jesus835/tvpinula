@@ -671,6 +671,105 @@
             color: var(--gold-light);
         }
 
+        /* Download APP Section */
+        .download-app-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--black) 0%, var(--navy-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .download-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .download-buttons {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .download-buttons h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            color: var(--white);
+            margin-bottom: 40px;
+        }
+
+        .store-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .store-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .store-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .store-btn.android:hover {
+            border-color: #34A853;
+        }
+
+        .store-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .store-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .store-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+        }
+
+        .store-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .download-buttons {
+                max-width: 300px;
+            }
+
+            .store-buttons {
+                margin: 0 auto 40px;
+            }
+        }
+
         /* Donation Section */
         .donation-section {
             padding: 80px 0;
@@ -2036,6 +2135,7 @@
                 <li><a href="https://radiotv-pinula.netlify.app/#programas" bis_skin_checked="1">Programación</a></li>
                 <li><a href="https://radiotv-pinula.netlify.app/#nosotros" bis_skin_checked="1">Nosotros</a></li>
                 <li><a href="https://radiotv-pinula.netlify.app/#contacto" bis_skin_checked="1">Contacto</a></li>
+                <li><a href="https://radiotv-pinula.netlify.app/#descargar-app" bis_skin_checked="1">Descargar APP</a></li>
             </ul>
 
             <div class="live-buttons" bis_skin_checked="1">
@@ -2071,6 +2171,7 @@
             <li><a href="https://radiotv-pinula.netlify.app/#programas" onclick="toggleMobileMenu()" bis_skin_checked="1">Programación</a></li>
             <li><a href="https://radiotv-pinula.netlify.app/#nosotros" onclick="toggleMobileMenu()" bis_skin_checked="1">Nosotros</a></li>
             <li><a href="https://radiotv-pinula.netlify.app/#contacto" onclick="toggleMobileMenu()" bis_skin_checked="1">Contacto</a></li>
+            <li><a href="https://radiotv-pinula.netlify.app/#descargar-app" onclick="toggleMobileMenu()" bis_skin_checked="1">Descargar APP</a></li>
         </ul>
         <div class="live-buttons" bis_skin_checked="1">
             <a href="javascript:void(0)" class="live-btn" onclick="openRadioPlayer(); toggleMobileMenu();">
@@ -2385,6 +2486,37 @@
         </div>
     </section>
 
+    <!-- Download APP Section -->
+    <section class="download-app-section" id="descargar-app">
+        <div class="download-container">
+            <div class="section-header">
+                <h2 class="section-title">DESCARGAR NUESTRA APP</h2>
+                <p class="section-subtitle">Lleva Radio-TV Pínula contigo a donde vayas</p>
+            </div>
+            
+            <div class="download-content">
+                <div class="download-buttons">
+                    <h3>Descarga gratuita disponible para Moviles Android :</h3>
+                    
+                    <div class="store-buttons">
+                        <a href="#" class="store-btn android" onclick="alert('Enlace a descarga próximamente')">
+                            <div class="store-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.609 1.814L13.792 12L3.609 22.186a.996.996 0 0 1-.69-.276V2.09a.996.996 0 0 1 .69-.276z" fill="currentColor"/>
+                                    <path d="M20.892 10.554L18.28 9.132L15.97 11.448L18.28 12.868L20.892 13.446C21.592 13.054 22 12.568 22 12C22 11.432 21.592 10.946 20.892 10.554Z" fill="currentColor"/>
+                                    <path d="M15.97 12.552L18.28 9.132L3.609 1.814L13.414 11.62C14.196 12.402 14.196 13.598 13.414 14.38L3.609 22.186L18.28 14.868L15.97 12.552Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="store-text">
+                                <span class="store-name">CLIC PARA DESCARGAR</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container" bis_skin_checked="1">
@@ -2417,6 +2549,7 @@
                     <li><a href="https://radiotv-pinula.netlify.app/#programas" bis_skin_checked="1">Programación</a></li>
                     <li><a href="https://radiotv-pinula.netlify.app/#nosotros" bis_skin_checked="1">Nosotros</a></li>
                     <li><a href="https://radiotv-pinula.netlify.app/#contacto" bis_skin_checked="1">Contacto</a></li>
+                    <li><a href="https://radiotv-pinula.netlify.app/#descargar-app" bis_skin_checked="1">Descargar APP</a></li>
                     <li><a href="https://radiotv-pinula.netlify.app/#">Publicidad</a></li>
                 </ul>
             </div>
