@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap oficial Radio-TV Pínula 98.5 FM
+Sitemap: https://radiotv-pinula.netlify.app/sitemap.xml
+
+# Permitir indexación de páginas importantes
+Allow: /radio-en-vivo
+Allow: /tv-en-vivo
+Allow: /nosotros
+Allow: /contacto
+Allow: /descargar-app
+
+# Evitar indexación de archivos innecesarios
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /fonts/
+Disallow: /imagenes/
+
+# Crawl-delay para ser amigable con el servidor
+Crawl-delay: 1
