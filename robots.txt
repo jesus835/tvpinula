@@ -1,4 +1,4 @@
-User-agent: *
+eser-agent: *
 Allow: /
 
 # Sitemap oficial Radio-TV Pínula 98.5 FM
@@ -11,9 +11,8 @@ Allow: /nosotros
 Allow: /contacto
 Allow: /descargar-app
 
-# Evitar indexación de archivos innecesarios
+# Evitar indexación de archivos innecesarios (permitir JS para contenido dinámico)
 Disallow: /*.json$
-Disallow: /*.js$
 Disallow: /fonts/
 Disallow: /imagenes/
 
