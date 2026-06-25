@@ -2815,13 +2815,13 @@
                 <h3>RADIO-TV PÍNULA</h3>
                 <p>Radio cristiana Stereo Pínula 98.5 FM y TV Online. Transmitiendo desde San José Pinula, llevamos cada día un mensaje de esperanza, salvación y libertad en Cristo Jesús.</p>
                 <div class="social-links" bis_skin_checked="1">
-                    <a href="https://www.facebook.com/profile.php?id=61577337626636" class="social-link" onclick="return openSocialApp(event, 'facebook')">
+                    <a href="https://www.facebook.com/profile.php?id=61577337626636" class="social-link" target="_blank" rel="noopener noreferrer" onclick="return openSocialApp(event, 'facebook')">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://www.instagram.com/stereopinula98.5/" class="social-link" onclick="return openSocialApp(event, 'instagram')">
+                    <a href="https://www.instagram.com/stereopinula98.5/" class="social-link" target="_blank" rel="noopener noreferrer" onclick="return openSocialApp(event, 'instagram')">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@radiotvpinula985" class="social-link" onclick="return openSocialApp(event, 'tiktok')">
+                    <a href="https://www.tiktok.com/@radiotvpinula985" class="social-link" target="_blank" rel="noopener noreferrer" onclick="return openSocialApp(event, 'tiktok')">
                         <i class="fab fa-tiktok"></i>
                     </a>
                     <a href="https://wa.me/50258181546" class="social-link" bis_skin_checked="1">
@@ -2857,13 +2857,13 @@
         <div class="footer-social-bar">
             <h4>Síguenos</h4>
             <div class="footer-social-icons">
-                <a href="https://www.facebook.com/profile.php?id=61577337626636" class="footer-social-icon" onclick="return openSocialApp(event, 'facebook')" aria-label="Facebook">
+                <a href="https://www.facebook.com/profile.php?id=61577337626636" class="footer-social-icon" target="_blank" rel="noopener noreferrer" onclick="return openSocialApp(event, 'facebook')" aria-label="Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://www.instagram.com/stereopinula98.5/" class="footer-social-icon" onclick="return openSocialApp(event, 'instagram')" aria-label="Instagram">
+                <a href="https://www.instagram.com/stereopinula98.5/" class="footer-social-icon" target="_blank" rel="noopener noreferrer" onclick="return openSocialApp(event, 'instagram')" aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.tiktok.com/@radiotvpinula985" class="footer-social-icon" onclick="return openSocialApp(event, 'tiktok')" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@radiotvpinula985" class="footer-social-icon" target="_blank" rel="noopener noreferrer" onclick="return openSocialApp(event, 'tiktok')" aria-label="TikTok">
                     <i class="fab fa-tiktok"></i>
                 </a>
                 <a href="https://wa.me/50258181546" class="footer-social-icon whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -3733,59 +3733,27 @@
             }
         });
 
-        // Abrir redes sociales en su app (no en WebView)
+        // Abrir redes sociales (solo HTTPS, sin intent:// ni fb://)
         const SOCIAL_LINKS = {
-            facebook: {
-                web: 'https://www.facebook.com/profile.php?id=61577337626636',
-                androidPackage: 'com.facebook.katana',
-                ios: 'fb://profile/61577337626636'
-            },
-            instagram: {
-                web: 'https://www.instagram.com/stereopinula98.5/',
-                androidPackage: 'com.instagram.android',
-                ios: 'instagram://user?username=stereopinula98.5'
-            },
-            tiktok: {
-                web: 'https://www.tiktok.com/@radiotvpinula985',
-                androidPackage: 'com.zhiliaoapp.musically',
-                ios: 'snssdk1180://user/profile/@radiotvpinula985'
-            }
+            facebook: 'https://www.facebook.com/profile.php?id=61577337626636',
+            instagram: 'https://www.instagram.com/stereopinula98.5/',
+            tiktok: 'https://www.tiktok.com/@radiotvpinula985'
         };
 
         function openSocialApp(event, network) {
             event.preventDefault();
 
-            const social = SOCIAL_LINKS[network];
-            if (!social) return false;
+            const webUrl = SOCIAL_LINKS[network];
+            if (!webUrl) return false;
 
-            const ua = navigator.userAgent || '';
-            const webUrl = social.web;
-            const path = webUrl.replace(/^https?:\/\//, '');
+            const link = document.createElement('a');
+            link.href = webUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
 
-            if (/Android/i.test(ua)) {
-                window.location.href =
-                    'intent://' + path +
-                    '#Intent;scheme=https;package=' + social.androidPackage +
-                    ';S.browser_fallback_url=' + encodeURIComponent(webUrl) + ';end';
-
-                setTimeout(function() {
-                    window.location.href =
-                        'intent://' + path +
-                        '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;' +
-                        'S.browser_fallback_url=' + encodeURIComponent(webUrl) + ';end';
-                }, 700);
-                return false;
-            }
-
-            if (/iPhone|iPad|iPod/i.test(ua)) {
-                window.location.href = social.ios;
-                setTimeout(function() {
-                    window.location.href = webUrl;
-                }, 600);
-                return false;
-            }
-
-            window.open(webUrl, '_blank', 'noopener,noreferrer');
             return false;
         }
 
