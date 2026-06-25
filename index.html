@@ -1072,6 +1072,57 @@
             box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
         }
 
+        .webview-banner {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1002;
+            width: calc(100% - 24px);
+            max-width: 520px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            padding: 12px 14px;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .webview-banner.active {
+            display: flex;
+        }
+
+        .webview-banner p {
+            flex: 1;
+            font-size: 13px;
+            color: var(--white);
+            line-height: 1.4;
+        }
+
+        .webview-banner-btn {
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .webview-banner-close {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 20px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 4px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -2343,6 +2394,13 @@
             </div>
             <p style="color: var(--gold); font-family: &#39;Oswald&#39;, sans-serif;">RADIO-TV PÍNULA</p>
         </div>
+    </div>
+
+    <!-- WebView Banner -->
+    <div class="webview-banner" id="webviewBanner">
+        <p>Estás en un navegador interno. Abre en Chrome para mejor reproducción.</p>
+        <button class="webview-banner-btn" type="button" onclick="acceptOpenInChrome()">Abrir en Chrome</button>
+        <button class="webview-banner-close" type="button" onclick="dismissWebviewBanner()" aria-label="Cerrar">×</button>
     </div>
 
     <!-- Navigation -->
@@ -3673,6 +3731,91 @@
                         break;
                 }
             }
+        });
+
+        // Abrir enlaces en Chrome cuando está en WebView / navegador interno
+        function isMobileDevice() {
+            return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+
+        function isWebView() {
+            const ua = navigator.userAgent || '';
+            const inAppBrowser = /FBAN|FBAV|Instagram|Line\/|MicroMessenger|Twitter|WhatsApp|TikTok|Snapchat|LinkedInApp|Telegram/i.test(ua);
+            const androidWebView = /Android/i.test(ua) && /; wv\)|Version\/\d+\.\d+.*Chrome\/\d+(\.\d+)+.*Mobile/i.test(ua) && !/Chrome\/[\d.]+ Mobile Safari\/537\.36$/i.test(ua);
+            const iosWebView = /iPhone|iPad|iPod/i.test(ua) && !window.navigator.standalone && !/Safari/i.test(ua);
+            return inAppBrowser || androidWebView || iosWebView;
+        }
+
+        function openInChrome(url) {
+            const absoluteUrl = new URL(url, window.location.href).href;
+            const ua = navigator.userAgent || '';
+
+            if (/Android/i.test(ua)) {
+                const path = absoluteUrl.replace(/^https?:\/\//, '');
+                window.location.href =
+                    'intent://' + path +
+                    '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' +
+                    encodeURIComponent(absoluteUrl) + ';end';
+                return;
+            }
+
+            if (/iPhone|iPad|iPod/i.test(ua)) {
+                const chromeUrl = absoluteUrl
+                    .replace(/^https:\/\//, 'googlechromes://')
+                    .replace(/^http:\/\//, 'googlechrome://');
+                window.location.href = chromeUrl;
+                setTimeout(() => {
+                    window.location.href = absoluteUrl;
+                }, 600);
+                return;
+            }
+
+            window.open(absoluteUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function dismissWebviewBanner() {
+            const banner = document.getElementById('webviewBanner');
+            if (banner) banner.classList.remove('active');
+            sessionStorage.setItem('webviewBannerDismissed', '1');
+        }
+
+        function acceptOpenInChrome() {
+            sessionStorage.setItem('openInChromeAccepted', '1');
+            sessionStorage.setItem('webviewBannerDismissed', '1');
+            dismissWebviewBanner();
+            openInChrome(window.location.href);
+        }
+
+        if (isMobileDevice() && isWebView() && !sessionStorage.getItem('webviewBannerDismissed')) {
+            document.getElementById('webviewBanner')?.classList.add('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!isMobileDevice() || !isWebView() || !sessionStorage.getItem('openInChromeAccepted')) return;
+
+            const anchor = e.target.closest('a[href]');
+            if (!anchor || anchor.dataset.noChrome !== undefined) return;
+
+            const href = anchor.getAttribute('href');
+            const onclick = anchor.getAttribute('onclick') || '';
+
+            if (onclick.includes('openRadioPlayer') || onclick.includes('openHLSPlayer')) return;
+            if (!href || href === '#') return;
+
+            let targetUrl = null;
+
+            if (href.startsWith('#')) {
+                targetUrl = window.location.href.split('#')[0] + href;
+            } else if (href.startsWith('/')) {
+                targetUrl = window.location.origin + href;
+            } else if (/^https?:\/\//i.test(href)) {
+                targetUrl = href;
+            }
+
+            if (!targetUrl) return;
+
+            e.preventDefault();
+            openInChrome(targetUrl);
         });
     </script>
 
