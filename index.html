@@ -40,7 +40,7 @@
     <meta name="language" content="es-GT">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="./Radio-TV Pínula 98.5 FM _ Tu Bendición Digital_files/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet">
@@ -65,8 +65,8 @@
       "language": "es-GT",
       "broadcastFrequency": "98.5 MHz",
       "sameAs": [
-        "https://facebook.com/pinulastereo",
-        "https://tiktok.com/@stereopinula98.5fm"
+        "https://www.facebook.com/profile.php?id=61577337626636",
+        "https://www.tiktok.com/@radiotvpinula985"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
@@ -226,6 +226,13 @@
             color: var(--gold);
         }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-left: auto;
+        }
+
         .nav-links {
             display: flex;
             gap: 30px;
@@ -261,17 +268,18 @@
 
         .live-buttons {
             display: flex;
+            flex-wrap: nowrap;
             gap: 10px;
         }
 
         .live-btn {
-            padding: 10px 20px;
+            padding: 10px 16px;
             background: var(--gold);
             color: var(--navy);
             border: none;
             border-radius: 30px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s;
@@ -280,7 +288,9 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .live-btn::before {
@@ -309,6 +319,16 @@
         .live-btn.tv {
             background: var(--navy);
             color: var(--white);
+        }
+
+        .live-btn.donation {
+            background: var(--white);
+            color: var(--navy);
+            border: 2px solid var(--gold);
+        }
+
+        .live-btn.donation:hover {
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.25);
         }
 
         .live-indicator {
@@ -964,6 +984,57 @@
             color: var(--gold);
         }
 
+        .footer-social-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 10px;
+            text-align: center;
+        }
+
+        .footer-social-bar h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-social-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 22px;
+            transition: all 0.3s;
+        }
+
+        .footer-social-icon:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35);
+        }
+
+        .footer-social-icon.whatsapp:hover {
+            background: #25D366;
+            border-color: #25D366;
+            color: var(--white);
+        }
+
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
@@ -1041,6 +1112,7 @@
             .live-buttons {
                 display: none;
             }
+
         }
 
         /* Mobile Menu */
@@ -1198,6 +1270,49 @@
         .hls-fullscreen-btn:hover {
             background: rgba(30, 58, 138, 0.2);
             transform: scale(1.1);
+        }
+
+        .hls-reconnect-btn {
+            background: none;
+            border: none;
+            color: var(--navy);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .hls-reconnect-btn:hover {
+            background: rgba(30, 58, 138, 0.2);
+            transform: scale(1.1);
+        }
+
+        .hls-reconnect-btn.spinning i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stream-status {
+            display: none;
+            color: var(--gold);
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .stream-status.visible {
+            display: block;
         }
 
         .hls-header-controls {
@@ -1822,6 +1937,35 @@
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
         }
 
+        .radio-reconnect-button {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            white-space: nowrap;
+        }
+
+        .radio-reconnect-button:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .radio-reconnect-button.spinning i {
+            animation: spin 1s linear infinite;
+        }
+
         /* Hide radio video player completely */
         .radio-video-player {
             display: none !important;
@@ -2209,23 +2353,29 @@
     <div class="logo-text" bis_skin_checked="1">RADIO-TV <span>PÍNULA</span></div>
 </a>
 
-            <ul class="nav-links">
-                <li><a href="https://radiotv-pinula.netlify.app/#inicio" bis_skin_checked="1">Inicio</a></li>
-                <li><a href="https://radiotv-pinula.netlify.app/#programas" bis_skin_checked="1">Programación</a></li>
-                <li><a href="https://radiotv-pinula.netlify.app/#nosotros" bis_skin_checked="1">Nosotros</a></li>
-                <li><a href="https://radiotv-pinula.netlify.app/#contacto" bis_skin_checked="1">Contacto</a></li>
-                <li><a href="https://radiotv-pinula.netlify.app/#descargar-app" bis_skin_checked="1">Descargar APP</a></li>
-            </ul>
+            <div class="nav-actions">
+                <ul class="nav-links">
+                    <li><a href="https://radiotv-pinula.netlify.app/#inicio" bis_skin_checked="1">Inicio</a></li>
+                    <li><a href="https://radiotv-pinula.netlify.app/#programas" bis_skin_checked="1">Programación</a></li>
+                    <li><a href="https://radiotv-pinula.netlify.app/#nosotros" bis_skin_checked="1">Nosotros</a></li>
+                    <li><a href="https://radiotv-pinula.netlify.app/#contacto" bis_skin_checked="1">Contacto</a></li>
+                    <li><a href="https://radiotv-pinula.netlify.app/#descargar-app" bis_skin_checked="1">Descargar APP</a></li>
+                </ul>
 
-            <div class="live-buttons" bis_skin_checked="1">
-                <a href="/radio-en-vivo" class="live-btn" onclick="openRadioPlayer(); return false;">
-                    <span class="live-indicator"></span>
-                    Radio en Vivo
-                </a>
-                <a href="/tv-en-vivo" class="live-btn tv" onclick="openHLSPlayer(); return false;">
-                    <span class="live-indicator"></span>
-                    TV en Vivo
-                </a>
+                <div class="live-buttons" bis_skin_checked="1">
+                    <a href="/radio-en-vivo" class="live-btn" onclick="openRadioPlayer(); return false;">
+                        <span class="live-indicator"></span>
+                        Radio en Vivo
+                    </a>
+                    <a href="https://tvpinunadonativos.netlify.app/" class="live-btn donation" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Ofrenda
+                    </a>
+                    <a href="/tv-en-vivo" class="live-btn tv" onclick="openHLSPlayer(); return false;">
+                        <span class="live-indicator"></span>
+                        TV en Vivo
+                    </a>
+                </div>
             </div>
 
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
@@ -2256,6 +2406,10 @@
             <a href="/radio-en-vivo" class="live-btn" onclick="openRadioPlayer(); toggleMobileMenu(); return false;">
                 <span class="live-indicator"></span>
                 Radio en Vivo
+            </a>
+            <a href="https://tvpinunadonativos.netlify.app/" class="live-btn donation" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()">
+                <i class="fas fa-hand-holding-heart"></i>
+                Ofrenda
             </a>
             <a href="/tv-en-vivo" class="live-btn tv" onclick="openHLSPlayer(); toggleMobileMenu(); return false;">
                 <span class="live-indicator"></span>
@@ -2526,7 +2680,7 @@
                     <h3 class="contact-title">Redes Sociales</h3>
                     <div class="contact-info" bis_skin_checked="1">
                         <p>Facebook: Pínula stereo</p>
-                        <p>TikTok: @stereopinula98.5fm</p>
+                        <p>TikTok: @radiotvpinula985</p>
                     </div>
                 </div>
             </div>
@@ -2603,17 +2757,14 @@
                 <h3>RADIO-TV PÍNULA</h3>
                 <p>Radio cristiana Stereo Pínula 98.5 FM y TV Online. Transmitiendo desde San José Pinula, llevamos cada día un mensaje de esperanza, salvación y libertad en Cristo Jesús.</p>
                 <div class="social-links" bis_skin_checked="1">
-                    <a href="https://facebook.com/pinulastereo" class="social-link" bis_skin_checked="1">
+                    <a href="https://www.facebook.com/profile.php?id=61577337626636" class="social-link" bis_skin_checked="1">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://instagram.com/stereopinula98.5fm" class="social-link" bis_skin_checked="1">
+                    <a href="https://www.instagram.com/stereopinula98.5/" class="social-link" bis_skin_checked="1">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@stereopinula98.5fm" class="social-link" bis_skin_checked="1">
+                    <a href="https://www.tiktok.com/@radiotvpinula985" class="social-link" bis_skin_checked="1">
                         <i class="fab fa-tiktok"></i>
-                    </a>
-                    <a href="https://t.me/stereopinula985" class="social-link" bis_skin_checked="1">
-                        <i class="fab fa-telegram"></i>
                     </a>
                     <a href="https://wa.me/50258181546" class="social-link" bis_skin_checked="1">
                         <i class="fab fa-whatsapp"></i>
@@ -2644,6 +2795,24 @@
                 </ul>
             </div>
         </div>
+
+        <div class="footer-social-bar">
+            <h4>Síguenos</h4>
+            <div class="footer-social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61577337626636" class="footer-social-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/stereopinula98.5/" class="footer-social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@radiotvpinula985" class="footer-social-icon" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://wa.me/50258181546" class="footer-social-icon whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
         
         <div class="footer-bottom" bis_skin_checked="1">
             <p>© 2024 Radio-TV Pínula. Todos los derechos reservados. | "Jesucristo es el Señor"</p>
@@ -2663,6 +2832,9 @@
                     TV PÍNULA EN VIVO
                 </div>
                 <div class="hls-header-controls">
+                    <button class="hls-reconnect-btn" id="hlsReconnectBtn" onclick="reconnectHLSStream()" title="Reconectar transmisión">
+                        <i class="fas fa-rotate-right"></i>
+                    </button>
                     <button class="hls-fullscreen-btn" onclick="toggleFullscreen()" title="Pantalla completa">
                         <span id="fullscreenIcon">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2695,6 +2867,7 @@
                 </div>
                 <h3>Transmisión en Directo</h3>
                 <p>Radio-TV Pínula 98.5 FM | Tu Bendición Digital</p>
+                <p class="stream-status" id="hlsStreamStatus"></p>
             </div>
         </div>
     </div>
@@ -2745,6 +2918,12 @@
                 </div>
                 <p>Transmisión en Directo desde San José Pinula</p>
                 <p class="now-playing">Programación Cristiana 24/7</p>
+                <p class="stream-status" id="radioStreamStatus"></p>
+
+                <button class="radio-reconnect-button" id="radioReconnectBtn" onclick="reconnectRadioStream()" title="Reconectar radio">
+                    <i class="fas fa-rotate-right"></i>
+                    Reconectar
+                </button>
                 
                 <button class="radio-close-button" onclick="closeRadioPlayer()">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2874,13 +3053,180 @@
             statsObserver.observe(stat);
         });
 
+        // Stream recovery
+        const LIVE_STREAM_URL = 'https://live20.bozztv.com/giatv/giatv-radiotvpinula/radiotvpinula/chunks.m3u8';
+        const LIVE_STREAM_TYPE = 'application/x-mpegURL';
+        const STALL_CHECK_MS = 5000;
+        const STALL_TIMEOUT_MS = 15000;
+        const MAX_STREAM_RETRIES = 6;
+        const RETRY_DELAY_MS = 2500;
+
+        function createStreamRecovery(player, options) {
+            const { statusEl, reconnectBtn, getIsActive, onPlaying, onError } = options;
+            let lastProgressAt = Date.now();
+            let lastTime = 0;
+            let stallInterval = null;
+            let retryTimeout = null;
+            let retryCount = 0;
+            let isReconnecting = false;
+
+            function setStatus(text) {
+                if (statusEl) {
+                    statusEl.textContent = text || '';
+                    statusEl.classList.toggle('visible', !!text);
+                }
+                if (reconnectBtn) {
+                    reconnectBtn.classList.toggle('spinning', !!text);
+                }
+            }
+
+            function markProgress() {
+                lastTime = player.currentTime();
+                lastProgressAt = Date.now();
+            }
+
+            function reloadStream(manual = false) {
+                if (!player || (isReconnecting && !manual)) return;
+
+                if (manual) {
+                    retryCount = 0;
+                    if (retryTimeout) {
+                        clearTimeout(retryTimeout);
+                        retryTimeout = null;
+                    }
+                }
+
+                isReconnecting = true;
+                setStatus('Reconectando...');
+
+                const volume = player.volume();
+                const wasPlaying = !player.paused();
+
+                try { player.error(null); } catch (e) {}
+
+                player.src({
+                    src: LIVE_STREAM_URL,
+                    type: LIVE_STREAM_TYPE
+                });
+
+                const finishReconnect = () => {
+                    isReconnecting = false;
+                    markProgress();
+                    player.volume(volume);
+
+                    if (wasPlaying || manual) {
+                        player.play().then(() => {
+                            retryCount = 0;
+                            setStatus('');
+                            onPlaying?.();
+                        }).catch(() => {
+                            setStatus('');
+                            scheduleRetry();
+                        });
+                    } else {
+                        retryCount = 0;
+                        setStatus('');
+                    }
+                };
+
+                player.one('loadeddata', finishReconnect);
+
+                setTimeout(() => {
+                    if (isReconnecting) {
+                        player.off('loadeddata', finishReconnect);
+                        isReconnecting = false;
+                        scheduleRetry();
+                    }
+                }, 12000);
+            }
+
+            function scheduleRetry() {
+                if (!getIsActive()) return;
+
+                if (retryCount >= MAX_STREAM_RETRIES) {
+                    setStatus('Sin conexión. Toca Reconectar.');
+                    onError?.();
+                    return;
+                }
+
+                retryCount++;
+                setStatus(`Reconectando (${retryCount}/${MAX_STREAM_RETRIES})...`);
+                retryTimeout = setTimeout(() => reloadStream(false), RETRY_DELAY_MS * retryCount);
+            }
+
+            function checkStall() {
+                if (!getIsActive() || player.paused() || isReconnecting) return;
+
+                const now = Date.now();
+                const currentTime = player.currentTime();
+
+                if (Math.abs(currentTime - lastTime) > 0.25) {
+                    lastTime = currentTime;
+                    lastProgressAt = now;
+                    return;
+                }
+
+                if (now - lastProgressAt >= STALL_TIMEOUT_MS) {
+                    console.log('Stream congelado, reconectando...');
+                    reloadStream(false);
+                }
+            }
+
+            function startMonitoring() {
+                stopMonitoring();
+                markProgress();
+                stallInterval = setInterval(checkStall, STALL_CHECK_MS);
+            }
+
+            function stopMonitoring() {
+                if (stallInterval) clearInterval(stallInterval);
+                if (retryTimeout) clearTimeout(retryTimeout);
+                stallInterval = null;
+                retryTimeout = null;
+                retryCount = 0;
+                isReconnecting = false;
+                setStatus('');
+            }
+
+            function setupEvents() {
+                player.on('play', markProgress);
+                player.on('timeupdate', markProgress);
+                player.on('playing', markProgress);
+
+                player.on('error', function() {
+                    console.log('Error en stream, reconectando...');
+                    try { player.error(null); } catch (e) {}
+                    if (getIsActive()) scheduleRetry();
+                    onError?.();
+                });
+            }
+
+            return { reloadStream, startMonitoring, stopMonitoring, setupEvents };
+        }
+
         // HLS Player Functions
         let hlsPlayer = null;
+        let hlsRecovery = null;
         let isFullscreen = false;
 
         // Radio Player Functions
         let radioAudio = null;
+        let radioRecovery = null;
         let isRadioPlaying = false;
+
+        function reconnectHLSStream() {
+            if (hlsRecovery) {
+                hlsRecovery.reloadStream(true);
+                hlsRecovery.startMonitoring();
+            }
+        }
+
+        function reconnectRadioStream() {
+            if (radioRecovery) {
+                radioRecovery.reloadStream(true);
+                radioRecovery.startMonitoring();
+            }
+        }
 
         function openRadioPlayer() {
             const overlay = document.getElementById('radioOverlay');
@@ -2905,9 +3251,27 @@
                 // Load HLS stream
                 radioAudio.ready(() => {
                     radioAudio.src({
-                        src: 'https://live20.bozztv.com/giatv/giatv-radiotvpinula/radiotvpinula/chunks.m3u8',
-                        type: 'application/x-mpegURL'
+                        src: LIVE_STREAM_URL,
+                        type: LIVE_STREAM_TYPE
                     });
+
+                    radioRecovery = createStreamRecovery(radioAudio, {
+                        statusEl: document.getElementById('radioStreamStatus'),
+                        reconnectBtn: document.getElementById('radioReconnectBtn'),
+                        getIsActive: () => document.getElementById('radioOverlay').classList.contains('active'),
+                        onPlaying: () => {
+                            updateRadioPlayButton(true);
+                            startEqualizer();
+                        },
+                        onError: () => {
+                            updateRadioPlayButton(false);
+                            stopEqualizer();
+                        }
+                    });
+                    radioRecovery.setupEvents();
+                    if (document.getElementById('radioOverlay').classList.contains('active')) {
+                        radioRecovery.startMonitoring();
+                    }
                 });
                 
                 // Setup volume control
@@ -2928,13 +3292,9 @@
                     updateRadioPlayButton(false);
                     stopEqualizer();
                 });
-                
-                radioAudio.on('error', function() {
-                    console.log('Error loading radio stream');
-                    updateRadioPlayButton(false);
-                    stopEqualizer();
-                });
             }
+
+            if (radioRecovery) radioRecovery.startMonitoring();
 
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
@@ -2943,6 +3303,8 @@
         function closeRadioPlayer() {
             const overlay = document.getElementById('radioOverlay');
             overlay.classList.remove('active');
+
+            if (radioRecovery) radioRecovery.stopMonitoring();
             
             // Pause audio
             if (radioAudio && !radioAudio.paused()) {
@@ -3036,9 +3398,21 @@
                 // Load HLS stream
                 hlsPlayer.ready(() => {
                     hlsPlayer.src({
-                        src: 'https://live20.bozztv.com/giatv/giatv-radiotvpinula/radiotvpinula/chunks.m3u8',
-                        type: 'application/x-mpegURL'
+                        src: LIVE_STREAM_URL,
+                        type: LIVE_STREAM_TYPE
                     });
+
+                    hlsRecovery = createStreamRecovery(hlsPlayer, {
+                        statusEl: document.getElementById('hlsStreamStatus'),
+                        reconnectBtn: document.getElementById('hlsReconnectBtn'),
+                        getIsActive: () => document.getElementById('hlsOverlay').classList.contains('active'),
+                        onPlaying: () => hlsPlayer.el().classList.add('playing'),
+                        onError: () => hlsPlayer.el().classList.remove('playing')
+                    });
+                    hlsRecovery.setupEvents();
+                    if (document.getElementById('hlsOverlay').classList.contains('active')) {
+                        hlsRecovery.startMonitoring();
+                    }
 
                     // Force autoplay after source is loaded
                     setTimeout(() => {
@@ -3092,12 +3466,6 @@
                     }, 500);
                 });
 
-                // Error handling
-                hlsPlayer.on('error', function() {
-                    console.log('Error loading HLS stream');
-                    hlsPlayer.error(null);
-                });
-
                 // Show video only when playing
                 hlsPlayer.on('play', function() {
                     hlsPlayer.el().classList.add('playing');
@@ -3117,6 +3485,8 @@
                 hlsPlayer.el().classList.add('playing');
             }
 
+            if (hlsRecovery) hlsRecovery.startMonitoring();
+
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
         }
@@ -3130,6 +3500,8 @@
             }
             
             overlay.classList.remove('active');
+
+            if (hlsRecovery) hlsRecovery.stopMonitoring();
             
             // Pause video
             if (hlsPlayer) {
